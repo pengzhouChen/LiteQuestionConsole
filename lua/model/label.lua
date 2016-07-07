@@ -39,7 +39,7 @@ end
 function _M:createLabelUserList()
 	local redis = redisClass:new()
 	redis:select(4)
-	return redis:hset("label_" .. self.id .. "_user", 10000, ngx.now() * 2)
+	return redis:hset("label_" .. self.id .. "_user_ids", 10000, ngx.now() * 2)
 end
 
 function _M:getLabelUserList()
@@ -89,7 +89,13 @@ end
 function _M:insertToLabelQuestionList(questionId)
 	local redis = redisClass:new()
 	redis:select(4)
-	return redis:sadd("label_" .. self.id .. "_question_list", questionId)
+	return redis:sadd("label_" .. self.id .. "_question_ids", questionId)
+end
+
+function _M:insertToLabelAdList(adId)
+	local redis = redisClass:new()
+	redis:select(4)
+	return redis:sadd("label_" .. self.id .. "_ad_ids", adId)
 end
 
 return _M

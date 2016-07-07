@@ -18,7 +18,7 @@ function _M:insertToQuestionInfo()
 	redis:select(4)
 	local labelsJson = json.encode(self.labels)
 	local answersJson = json.encode(self.answers)
-	return redis:hmset("question_" .. id .. "_info", "content", self.content, "labels", labelsJson, "answers", answersJson)	
+	return redis:hmset("question_" .. self.id .. "_info", "content", self.content, "labels", labelsJson, "answers", answersJson)	
 end
 
 function _M:insertToUserQuestionList(userList)
@@ -27,7 +27,7 @@ function _M:insertToUserQuestionList(userList)
 	--todo
 	local userCount = table.getn(userList)
 	for i = 1, userCount do
-		redis:sadd("user_" .. userList[i] .. "_question_list", self.id)
+		redis:sadd("user_" .. userList[i] .. "_question_ids", self.id)
 	end
 end
 
